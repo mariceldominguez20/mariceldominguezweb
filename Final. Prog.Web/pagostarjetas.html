@@ -1,0 +1,293 @@
+<!DOCTYPE html>  
+<html lang="es">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Realiza Tu Pago</title>  
+    <link rel="stylesheet" href="Mediosdepagos1.css">
+
+    <style>  
+       
+       body {  
+            font-size: 18px; /* Tamaño de fuente general */  
+        }  
+        h2 {  
+            color: #0e7925; /* Cambia este valor por el color que deseas para el título */  
+            text-align: center; /* Centrar el título */  
+            font-size: 30px;
+        }  
+        h3 {
+            font-style: oblique ;
+            font-size: 16px;
+        }
+        
+        
+        .form-group label {  
+            font-size: 20px; /* Tamaño de las etiquetas */  
+        }  
+        .form-group input {  
+            font-size: 18px; /* Tamaño de los campos de entrada */  
+        }  
+        button {  
+            font-size: 20px; /* Tamaño de los botones */  
+        }  
+        .botones-opciones {  
+            display: none; /* Ocultar inicialmente */  
+            margin-top: 20px;  
+        } 
+        body {  
+    font-size: px; /* Aumenta el tamaño de la fuente en todo el cuerpo */  
+}  
+
+.form-group label {  
+    font-size: 20px; /* Aumenta el tamaño de las etiquetas */  
+}  
+
+.form-group input {  
+    font-size: 18px; /* Aumenta el tamaño de la fuente en los campos de entrada */  
+}  
+
+button {  
+    font-size: 20px; /* Aumenta el tamaño de la fuente en los botones */  
+}
+        .form-container {  
+            background: rgb(255, 254, 254);  
+            padding: 5px;  
+            border-radius: 1px;  
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.10);  
+            max-width: 600px; 
+            margin: auto;  
+        }  
+        .form-group {  
+            margin-bottom: 15px;  
+        }  
+        .form-group label {  
+            display: block;  
+            margin-bottom: 5px;  
+        }  
+        .form-group input {  
+            width: 100%;  
+            padding: 10px;  
+            border: 1px solid #ccc;  
+            border-radius: 5px;  
+        }  
+        .form-group button {  
+            background-color: #28a745;  
+            color: white;  
+            border: none;  
+            padding: 10px;  
+            border-radius: 5px;  
+            cursor: pointer;  
+            width: 100%;  
+        }  
+        .form-group button:hover {  
+            background-color: #218838;  
+        }  
+        .tarjetas img {  
+            width: 80px;  
+            margin: 15px;  
+            transition: transform 0.2s;  
+        }  
+        .tarjetas img:hover {  
+            transform: scale(1.2);  
+        }  
+        
+    </style>  
+</head>  
+<body>  
+
+<div class="form-container">  
+    
+    <h2>Realiza Tu Pago</h2>  <br>
+    <div class="tarjetas">  
+        <h3>Tarjetas Aceptadas:</h3>  
+        <img src="Imagenes/tarj.amer.png" alt="Visa">  
+        <img src="Imagenes/tarj.mast.png" alt="Visa">  
+        <img src="Imagenes/tarjcabal.png" alt="Visa">  
+        <img src="Imagenes/tarje.naranj.png" alt="Visa"> 
+        <img src="Imagenes/tarjet.visa.png" alt="Visa">  
+
+
+    <div class="botones-opciones" id="opcionesPago">  
+        <button onclick="continuarCompra()">Continuar con mi compra</button>  
+        <button onclick="cancelarCompra()">Cancelar compra</button>  
+
+    </div> 
+    <form id="paymentForm" onsubmit="return validarFormulario()">  
+        <div class="form-group">  
+            <label for="nombre">Nombre y Apellido:</label>  
+            <input type="tt" id="nombre" name="nombre" placeholder="Ej: Alberto Gomez" required>  
+        </div>  
+        <div class="form-group">  
+            <label for="email">Correo Electrónico:</label>  
+            <input type="email" id="email" name="email" placeholder="example@example.com" required>  
+        </div>  
+        <div class="form-group">  
+            <label for="tarjeta">Número de Tarjeta:</label>  
+            <input type="text" id="tarjeta" name="tarjeta" placeholder="Ej: 5555-4444-3333-2222" required>  
+        </div>  
+        <div class="form-group">  
+            <label for="nombreTarjeta">Nombre en la Tarjeta:</label>  
+            <input type="text" id="nombreTarjeta" name="nombreTarjeta" placeholder="Luis Alberto Alaniz" required>  
+        </div>  
+        <div class="form-group">  
+            <label for="dni">DNI:</label>  
+            <input type="" id="dni" name="dni" placeholder=" 12345678" required>  
+        </div>  
+        <div class="form-group">  
+            <label for="fechaExpiracion">Fecha de Expiración:</label>  
+            <input type="" id="fechaExpiracion" name="fechaExpiracion"  placeholder="--/--">  
+        </div>  
+        <div class="form-group">  
+            <label for="fechaExpiracion">Codigo de Seguridad:</label>  
+            <input type="" id="fechaExpiracion" name="fechaExpiracion"  placeholder="CVV">  
+        </div>  
+        <div class="form-group">  
+            <label for="fechaExpiracion">Importe a Pagar</label>  
+            <input type="" id="fechaExpiracion" name="fechaExpiracion"  placeholder="$">  
+        </div>  
+        <div class="form-group">  
+            <label for="cuotas">Selecciona el número de cuotas</label>  
+            <select id="cuotas" name="cuotas" required>  
+                <option value="">--Seleccionar--</option>  
+                <option value="1">1 cuota</option>  
+                <option value="2">2 cuotas</option>  
+                <option value="3">3 cuotas</option>  
+                <option value="6">6 cuotas sin interes</option>  
+                <option value="12">12 cuotas</option>  
+            </select>  
+        </div>  
+        
+
+
+
+       
+       
+       
+
+        <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">He leido y acepto los terminos y condiciones</label>
+  </div>
+        
+  <div class="form-group">  
+    <button type="submit">Realizar Pago</button>  
+</div>
+<div>
+    <a href="Index.html">Volver a Pagina principal</a>
+</div>
+
+    
+</div>  
+    </div>  
+</div>  
+
+
+<script>  
+    function validarFormulario() {  
+        const nombre = document.getElementById('nombre').value;  
+        const email = document.getElementById('email').value;  
+        const tarjeta = document.getElementById('tarjeta').value;  
+        const nombreTarjeta = document.getElementById('nombreTarjeta').value;  
+        const dni = document.getElementById('dni').value;  
+        const fechaExpiracion = document.getElementById('fechaExpiracion').value;  
+        const codigoPostal = document.getElementById('codigoPostal').value;  
+        const provincia = document.getElementById('provincia').value;  
+
+        if (!nombre || !email || !tarjeta || !nombreTarjeta || !dni || !fechaExpiracion || !codigoPostal || !provincia) {  
+            alert("Por favor, completa todos los campos.");  
+            return false;  
+        }  
+
+        alert("Pago realizado con éxito.");  
+        return true;  
+    }  
+    function mostrarOpciones() {  
+        const opciones = document.getElementById('opcionesPago');  
+        opciones.style.display = 'block'; // Mostrar los botones  
+    }  
+
+    function continuarCompra() {  
+        alert("Continuando con la compra...");  
+        // Aquí podrías redirigir al usuario a otra página o realizar otra acción. 
+    } 
+    
+
+    function cancelarCompra() {  
+        alert("Compra cancelada.");  
+        // Aquí podrías redirigir al usuario a la página principal o realizar otra acción.  
+        
+    }  
+
+    function mostrarModal() {  
+        const modal = document.getElementById('miModal');  
+        modal.style.display = 'block'; // Mostrar el modal  
+    }  
+
+    function cerrarModal() {  
+        const modal = document.getElementById('miModal');  
+        modal.style.display = 'none'; // Ocultar el modal  
+    }  
+
+    function continuarCompra() {  
+        alert("Continuando con la compra...");  
+        cerrarModal(); // Cerrar el modal después de continuar  
+    }  
+
+    function cancelarCompra() {  
+        alert("Compra cancelada.");  
+        cerrarModal(); 
+        window.location.href = "";
+        
+        // Cerrar el modal después de cancelar 
+
+    }  
+
+    // Cerrar el modal si se hace clic fuera de él  
+    window.onclick = function(event) {  
+        const modal = document.getElementById('miModal');  
+        if (event.target == modal) {  
+            modal.style.display = "none";  
+        }  
+    }      
+    function validarFormulario() {  
+            const confirmation = confirm("¿Deseas continuar con la compra?");  
+            return confirmation; // Devuelve true para continuar, false para cancelar  
+        }  
+</script>  
+<title>Realiza Tu Pago</title>  
+<style>  
+    /* Estilos de tu formulario aquí ... (sin cambios) */  
+</style>  
+<script>  
+    function validarFormulario() {  
+        const confirmation = confirm("¿Deseas continuar con la compra?");  
+        return confirmation; // Devuelve true para continuar, false para cancelar  
+    }  
+    function validarFormulario() {  
+            const confirmation = confirm("¿Deseas continuar con la compra?");  
+            if (confirmation) {  
+                alert("¡Su compra se realizó con éxito!");  
+            }  
+            return confirmation; // Devuelve true para continuar, false para cancelar  
+        }  
+
+        
+
+        function validarFormulario() {
+    const confirmation = confirm("¿Deseas continuar con la compra?");
+    if (confirmation) {
+        alert("¡Su compra se realizó con éxito!");
+        window.location.href = "gracias.html"; // Redirigir a la página de agradecimiento
+    } else {
+        alert("Su compra ha sido cancelada."); // Mensaje de cancelación
+        window.location.href = "index.html"; // Redirigir a la página principal
+    }
+    return false; // Se devuelve falso para evitar el envío del formulario
+}
+
+</script>  
+
+</head>  
+<body>  
+</html>

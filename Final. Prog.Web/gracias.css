@@ -1,0 +1,68 @@
+/* styles.css */  
+
+/* Estilo básico del cuerpo */  
+  
+body {  
+    position: relative; /* Necesario para el pseudo-elemento */  
+    display: flex;  
+    align-items: center;  
+    justify-content: center;  
+    height: 100vh;  
+    overflow: hidden; /* Asegura que no haya desbordamiento */  
+}  
+
+body::before {  
+    content: '';  
+    position: absolute;  
+    top: 0;  
+    left: 0;  
+    right: 0;  
+    bottom: 0;  
+    background-image: url(Imagenes/foto.login.jpg);  
+    background-size: cover;  
+    opacity: 0.5; /* Cambia el valor según la transparencia deseada */  
+    z-index: -1; /* Asegura que esté detrás del contenido */  
+}  
+
+.container {  
+    position: relative; /* Para que el contenido esté sobre la imagen */  
+    z-index: 1; /* Asegura que esté por encima de la superposición */  
+}
+  
+
+/* Contenedor de agradecimiento */  
+.thank-you-container {  
+    background-color: rgba(255, 255, 255, 0.8);  
+    border-radius: 8px;  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+    padding: 20px;  
+    text-align: center;  
+    max-width: 400px;  
+    width: 100%;  
+}  
+
+/* Estilo del título */  
+.thank-you-container h1 {  
+    color: #000000; /* Color verde */  
+}  
+
+/* Estilo del párrafo */  
+.thank-you-container p {  
+    margin: 10px 0;  
+    font-family: 'Arial', sans-serif; /* Cambia 'Arial' al tipo de letra que desees */  
+}
+/* Estilo del botón de volver al inicio */  
+.back-button {  
+    display: inline-block;  
+    margin-top: 20px;  
+    padding: 10px 20px;  
+    background-color: #2567ca; /* Color verde */  
+    color: white;  
+    text-decoration: none;  
+    border-radius: 5px;  
+    transition: background-color 0.3s ease;  
+}  
+
+.back-button:hover {  
+    background-color: #45a049; /* Color verde más oscuro al pasar el ratón */  
+}

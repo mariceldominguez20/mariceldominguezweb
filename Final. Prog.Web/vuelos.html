@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Reserva de Vuelos</title>
+    <style>
+body {  
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    background-image: url('Imagenes/airport-terminal.jpg');  
+    background-size: cover;  
+    background-position: center;  
+    background-color: rgba(255, 255, 255, 0.8); /* Color de fondo claro y agradable */  
+    overflow: auto;  
+    margin: 0;  
+    padding: 20px;  
+}  
+
+/* Encabezados principales */  
+h1 {  
+    text-align: center;  
+    color: #2c3e50; /* Color azul oscuro */  
+    font-size: 3em; /* Tamaño grande */  
+    margin: 20px 0;  
+}  
+
+p {  
+    text-align: center;  
+    color: #34495e; /* Color gris oscuro */  
+    font-size: 1.2em; /* Tamaño ligeramente más grande */  
+}  
+
+
+/* Estilos para los detalles del vuelo */  
+.detalle-vuelo {  
+    font-size: 18px; /* Tamaño de fuente más grande */  
+    color: #4A4A4A; /* Color gris oscuro */  
+    margin: 5px 0; /* Espaciado vertical */  
+}  
+
+.precio {  
+    font-weight: bold;  
+    color: #e53935; /* Color rojo para enfatizar precios */  
+    font-size: 20px; /* Aumentar tamaño del precio */  
+}  
+
+
+/* Contenedor de vuelos */  
+#vuelos {  
+    display: flex;  
+    flex-direction: column;  
+    gap: 5px;  
+    color: #db343c; /* Color de texto atractivo */  
+    font-size: 16px; /* Tamaño de letra general */  
+}  
+
+.vuelo {  
+    background-color: rgba(255, 255, 255, 0.527); /* Fondo blanco más claro */  
+    border: 1px solid #007bff; /* Borde azul suave */  
+    border-radius: 10px; /* Bordes redondeados */  
+    padding: 10px; /* Espaciado interno uniforme */  
+    margin: 10px auto; /* Margen automático para centrar */  
+    width: 95%; /* Ancho del contenedor */  
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Sombra más suave */  
+    transition: transform 0.3s, box-shadow 0.3s; /* Transición más suave */  
+}  
+
+.vuelo:hover {  
+    transform: translateY(-3px); /* Efecto de levantamiento */  
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el mouse */  
+}  
+
+.detalles {  
+    color: #000000; /* Color de texto negro */  
+    display: flex;  
+    justify-content: space-between;  
+    width: 100%;  
+}  
+
+.detalles i {  
+    margin-right: 15px;  
+    color: #2980b9; /* Color azul para iconos */  
+}  
+
+/* Estilo de botones */  
+button {  
+    margin-top: 10px;  
+    padding: 12px 18px; /* Tamaño mejorado para los botones */  
+    background-color: #3498db; /* Botón azul claro */  
+    color: white;  
+    border: none;  
+    border-radius: 5px;  
+    cursor: pointer;  
+    font-size: 16px;  
+    transition: background-color 0.3s, transform 0.2s; /* Transición suave */  
+}  
+
+button:hover {  
+    background-color: #2980b9; /* Azul más oscuro al pasar el mouse */  
+    transform: translateY(-2px); /* Efecto de levitación */  
+}  
+
+/* Estilo del Modal */  
+#reservarModal,  
+#confirmacionModal {  
+    display: none;  
+    position: fixed;  
+    z-index: 1;  
+    left: 0;  
+    top: 0;  
+    width: 100%;  
+    height: 100%;  
+    overflow: auto;  
+    background-image: url('Imagenes/airplane-wing.jpg');  
+    background-size: cover;  
+    background-position: center;  
+}  
+
+    .modal-content {  
+    background-color: rgba(255, 255, 255, 0.479); /* Fondo del Modal con 90% de opacidad */  
+    margin: 15% auto; /* Ajusta el espacio superior para centrar más desde arriba */  
+    padding: 15px; /* Reduce el padding interno */  
+    border: none;  
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Sombra suave */  
+    border-radius: 10px; /* Redondea menos las esquinas */  
+    width: 600px; /* Agrega un ancho específico para controlar el tamaño del modal */  
+}  
+
+
+.modal-content h2 {  
+    text-align: center;  
+    color: #333; /* Color de título oscuro */  
+}  
+
+/* Estilo de formularios */  
+label {  
+    display: block;  
+    margin: 10px 0 5px;  
+    text-align: left;  
+    color: #333; /* Color de texto más oscuro */  
+}  
+
+input[type="date"],  
+input[type="text"],  
+input[type="email"],  
+input[type="tel"],  
+select {  
+    width: 100%;  
+    padding: 12px;  
+    border-radius: 5px;  
+    border: 1px solid #ccc;  
+    margin-bottom: 15px;  
+    box-sizing: border-box;  
+    transition: border-color 0.3s; /* Transición suave */  
+}  
+
+input:focus,  
+input:focus,  
+select:focus {  
+    border-color: #3498db; /* Cambia a azul atractivo al hacer foco */  
+    outline: none;  
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);  
+}  
+
+/* Estilos del botón de cerrar */  
+.close {  
+    color: #aaa;  
+    float: right;  
+    font-size: 28px;  
+    font-weight: bold;  
+}  
+
+.close:hover,  
+.close:focus {  
+    color: #3498db; /* Cambia a azul más atractivo al pasar */  
+    text-decoration: none;  
+    cursor: pointer;  
+}  
+
+/* Si hay estilos para contenedor de vuelos */  
+#vuelosContainer {  
+    width: 85%; /* Ancho del contenedor de vuelos */  
+    margin: 20px auto; /* Centrado automático */  
+}  
+
+.vuelo h3 {  
+    color: #007bff; /* Títulos en azul */  
+}  
+
+.vuelo p {  
+    margin: 5px 0; /* Espaciado vertical uniforme */  
+}  
+
+.precio {  
+    font-weight: bold;  
+    color: #e53935; /* Color rojo para enfatizar precios */  
+}  
+
+/* Tabla de aerolíneas */  
+.aerolineas-table {  
+    width: 90%;  
+    border-collapse: collapse;  
+    margin-top: 20px;  
+}  
+
+.aerolineas-table th,  
+.aerolineas-table td {  
+    padding: 15px;  
+    text-align: left;  
+    border-bottom: 2px solid #eef; /* Cambiar el color del borde */  
+}  
+
+img {  
+    width: 30px;  
+    height: auto;  
+    margin-right: 10px;  
+}
+    </style>
+</head>
+
+<body>
+    <h1>Vuelos Disponibles</h1>
+    <div id="vuelos"></div>
+
+    <div id="reservarModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('reservarModal').style.display='none'">&times;</span>
+            <h2>Reserva tu Vuelo</h2>
+            <form id="formReserva">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" required>
+
+                <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                <input type="date" id="fechaNacimiento" required>
+
+                <label for="numPasajeros">Número de Pasajeros:</label>
+                <select id="numPasajeros" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+
+                <label for="asiento">Asiento Preferido:</label>
+<select id="asiento" required>
+    <option value="" disabled selected>Elige una opción</option>
+    <option value="ventana">Ventana</option>
+    <option value="pasillo">Pasillo</option>
+    <option value="centro">Centro</option>
+</select>
+
+
+                <button type="submit">Confirmar Reserva</button>
+            </form>
+        </div>
+    </div>
+     
+    
+
+    <!-- Modal de Confirmación -->
+    <div id="confirmacionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <h2>Reserva Confirmada</h2>
+            <p id="mensajeConfirmacion"></p>
+            <button onclick="cerrarModal()">Aceptar</button>
+        </div>
+    </div>
+    
+
+    <script>
+        let vueloSeleccionado = null;
+
+        function mostrarVuelos() {
+            const vuelos = [
+                {
+                    id: 1,
+                    aerolinea: "Aerolínea Argentina",
+                    salida: "10:00",
+                    llegada: "12:00",
+                    origen: "Ciudad A",
+                    destino: "Ciudad B",
+                    duracion: "2h",
+                    terminal: "1",
+                    tipoAvion: "Boeing 737",
+                    equipajePermitido: "1 maleta de hasta 23kg",
+                    comidaABordo: "Snack incluido",
+                    condicionesCambio: "No reembolsable",
+                    checkin: "1.5 horas antes del vuelo",
+                    precio: 379.689,
+
+                },
+                {
+                    id: 2,
+                    aerolinea: "Latan Airlines",
+                    salida: "15:00",
+                    llegada: "17:00",
+                    origen: "Ciudad C",
+                    destino: "Ciudad D",
+                    duracion: "2h",
+                    terminal: "2",
+                    tipoAvion: "Airbus A320",
+                    equipajePermitido: "1 maleta de hasta 20kg",
+                    comidaABordo: "Comida caliente disponible",
+                    condicionesCambio: "Cargos aplicables",
+                    checkin: "2 horas antes del vuelo",
+                    precio: 398.579,
+
+                },
+                {
+                    id: 3,
+                    aerolinea: "Aerolíneas del Sur",
+                    salida: "08:30",
+                    llegada: "10:30",
+                    origen: "Ciudad E",
+                    destino: "Ciudad F",
+                    duracion: "2h",
+                    terminal: "3",
+                    tipoAvion: "Boeing 767",
+                    equipajePermitido: "2 maletas de hasta 23kg cada una",
+                    comidaABordo: "Snack y bebidas",
+                    condicionesCambio: "Cargos bajos",
+                    checkin: "1 hora antes del vuelo",
+                    precio: 455.249,
+
+                },
+                {
+                    id: 4,
+                    aerolinea: "Vuelos Rápidos",
+                    salida: "11:00",
+                    llegada: "13:00",
+                    origen: "Ciudad G",
+                    destino: "Ciudad H",
+                    precio: 470.361,
+                    duracion: "2h",
+                    terminal: "1",
+                    tipoAvion: "Embraer 190",
+                    equipajePermitido: "1 maleta de hasta 20kg",
+                    comidaABordo: "No incluye",
+                    condicionesCambio: "No reembolsable",
+                    checkin: "2 horas antes del vuelo",
+                    precio: 470.361,
+
+                },
+                {
+                    id: 5,
+                    aerolinea: "JetExpress",
+                    salida: "13:30",
+                    llegada: "15:30",
+                    origen: "Ciudad I",
+                    destino: "Ciudad J",
+                    precio: 470.361,
+                    duracion: "2h",
+                    terminal: "2",
+                    tipoAvion: "Airbus A319",
+                    equipajePermitido: "1 maleta de hasta 25kg",
+                    comidaABordo: "Snack y bebidas",
+                    condicionesCambio: "Flexibles (con cargo)",
+                    checkin: "2 horas antes del vuelo",
+                    precio: 470.361,
+
+                }
+            ];
+
+            const vuelosDiv = document.getElementById("vuelos");
+            vuelosDiv.innerHTML = "";
+
+            vuelos.forEach(vuelo => {
+                const vueloDiv = document.createElement("div");
+                vueloDiv.classList.add("vuelo");
+                vueloDiv.innerHTML = `<h3>${vuelo.aerolinea}</h3>
+                                      <p class="detalles">Origen: ${vuelo.origen} | Destino: ${vuelo.destino}</p>
+                                      <p class="detalles">Salida: ${vuelo.salida} | Llegada: ${vuelo.llegada}</p>
+                                      <p class="detalles">Duración: ${vuelo.duracion} | Terminal: ${vuelo.terminal}</p>
+                                      <p class="detalles">Tipo de avión: ${vuelo.tipoAvion}</p>
+                                      <p class="detalles">Equipaje permitido: ${vuelo.equipajePermitido}</p>
+                                      <p class="detalles">Comida a bordo: ${vuelo.comidaABordo}</p>
+                                      <p class="detalles">Condiciones de cambio: ${vuelo.condicionesCambio}</p>
+                                      <p class="detalles">Check-in: ${vuelo.checkin}</p>
+                                                                            <p class="detalles">Precio: $${vuelo.precio.toFixed(2)}</p>
+
+                                      <button onclick="reservarVuelo(${vuelo.id})">Reservar</button>`
+                                      
+                                      
+            vuelosDiv.appendChild(vueloDiv);
+            });
+        }
+
+        function reservarVuelo(id) {
+            vueloSeleccionado = id;
+            document.getElementById("reservarModal").style.display = "block";
+        }
+
+        document.getElementById("formReserva").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById("nombre").value;
+            const email = document.getElementById("email").value;
+            const telefono = document.getElementById("telefono").value;
+            const fechaNacimiento = document.getElementById("fechaNacimiento").value;
+            const numPasajeros = document.getElementById("numPasajeros").value;
+            const asiento = document.getElementById("asiento").value;
+
+            // Mensaje para mostrar al usuario en el modal
+            const mensaje = `Reserva confirmada para el vuelo ${vueloSeleccionado}.\nNombre: ${nombre}\nEmail: ${email}\nTeléfono: ${telefono}\nFecha de Nacimiento: ${fechaNacimiento}\nNúmero de Pasajeros: ${numPasajeros}\nAsiento: ${asiento}`;
+
+            // Mostrar el mensaje en el modal de confirmación
+            document.getElementById("mensajeConfirmacion").textContent = mensaje;
+            document.getElementById("confirmacionModal").style.display = "block";
+
+            document.getElementById("reservarModal").style.display = "none";
+            document.getElementById("formReserva").reset();
+        });
+
+        function cerrarModal() {
+            document.getElementById("confirmacionModal").style.display = "none";
+            // Redireccionar a la página principal
+            window.location.href = 'index.html'; // Cambia 'index.html' a la URL de tu página principal   
+        }
+
+        window.onload = mostrarVuelos;
+        
+    </script>
+
+</body>
+
+
+</html>
